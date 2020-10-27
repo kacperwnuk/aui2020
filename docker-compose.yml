@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    expose:
+      - "5432"
+    ports:
+      - "5440:5432"
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+  web:
+    build: ./FlaskBackend
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_DEBUG: 1
+    volumes: ['./FlaskBackend:/code']
+    depends_on:
+      - db
+
+  visualization:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    volumes:
+      - grafana-volume:/var/lib/grafana
+
+volumes:
+  grafana-volume:
+  postgres-volume:
