@@ -213,7 +213,7 @@ $table-dark-border-color: lighten($gray-900, 7.5%) !default;
 $table-dark-color: $body-bg !default;
 $table-striped-order: odd !default;
 $table-caption-color: $text-muted !default;
-// Buttons + Forms
+// ButtonsComponent + Forms
 //
 // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
 $input-btn-padding-y: .375rem !default;
@@ -229,7 +229,7 @@ $input-btn-padding-y-lg: .5rem !default;
 $input-btn-padding-x-lg: 1rem !default;
 $input-btn-line-height-lg: $line-height-lg !default;
 $input-btn-border-width: $border-width !default;
-// Buttons
+// ButtonsComponent
 //
 // For each of Bootstrap's buttons, define text, background, and border color.
 $btn-padding-y: $input-btn-padding-y !default;

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ButtonsComponent } from './buttons/buttons.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -11,6 +11,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     PagesRoutingModule
   ],
-  declarations: [UserProfileComponent]
+  declarations: [ButtonsComponent]
 })
 export class PagesModule { }

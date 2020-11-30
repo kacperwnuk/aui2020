@@ -50,7 +50,7 @@ export class NavigationService {
     }
 
     defaultMenu: IMenuItem[] = [
-        {   
+        {
             name: 'Podstrony',
             description: 'Zakładka w której zbierany jest czas jaki użytkownik spędził na każdym z widoków',
             type: 'dropDown',
@@ -82,11 +82,11 @@ export class NavigationService {
                 { icon: 'i-Medal-2', name: 'Badges', state: '/uikits/badges', type: 'link' },
                 {
                     icon: 'i-Arrow-Right-in-Circle',
-                    name: 'Buttons',
+                    name: 'ButtonsComponent',
                     type: 'dropDown',
                     sub: [
-                        { name: 'Bootstrap Buttons', state: '/uikits/buttons', type: 'link' },
-                        { name: 'Loding Buttons', state: '/uikits/buttons-loading', type: 'link' }
+                        { name: 'Bootstrap ButtonsComponent', state: '/uikits/buttons', type: 'link' },
+                        { name: 'Loding ButtonsComponent', state: '/uikits/buttons-loading', type: 'link' }
                     ]
                 },
                 { icon: 'i-ID-Card', name: 'Cards', state: '/uikits/cards', type: 'link' },
