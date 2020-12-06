@@ -11,7 +11,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { SidebarCompactComponent } from './admin-layout-sidebar-compact/sidebar-compact/sidebar-compact.component';
 import { HeaderSidebarCompactComponent } from './admin-layout-sidebar-compact/header-sidebar-compact/header-sidebar-compact.component';
 import { FooterComponent } from '../footer/footer.component';
-import { CustomizerComponent } from '../customizer/customizer.component';
 import { SharedDirectivesModule } from '../../directives/shared-directives.module';
 import { FormsModule } from '@angular/forms';
 
@@ -19,7 +18,6 @@ const components = [
     HeaderSidebarCompactComponent,
     SidebarCompactComponent,
     FooterComponent,
-    CustomizerComponent,
     AdminLayoutSidebarCompactComponent,
     AuthLayoutComponent,
     BlankLayoutComponent,
