@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { PageableParams } from '../models/api';
+import { PageableParams } from '../models/api.model';
 
 export class PathUtils {
 
