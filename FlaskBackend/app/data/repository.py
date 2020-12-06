@@ -7,6 +7,6 @@ def create_db():
 
 
 def create_action(action_name):
-    user = Action(name=action_name)
-    db.session.add(user)
+    action = Action(name=action_name)
+    db.session.add(action)
     db.session.commit()

@@ -11,10 +11,20 @@ services:
       - "5432"
     ports:
       - "5440:5432"
-    volumes:
-      - postgres-volume:/var/lib/postgresql/data
+#    volumes:
+#      - postgres-volume:/var/lib/postgresql/data
+
+  front:
+    build: ./Frontend-ng
+    expose:
+      - "4200"
+    ports:
+      - "4200:4200"
+
   web:
     build: ./FlaskBackend
+    expose:
+      - "5000"
     ports:
       - "5000:5000"
     environment:

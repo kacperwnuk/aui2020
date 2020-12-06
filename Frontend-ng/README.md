@@ -1,3 +1,7 @@
+First create node_modules -> npm install
+Never use npm audit, nevaaaaaa! 
+Then ng build
+
 # Gull
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
