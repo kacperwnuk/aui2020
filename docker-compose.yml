@@ -20,6 +20,8 @@ services:
       - "4200"
     ports:
       - "4200:4200"
+    volumes:
+      - angular-volume:/app
 
   web:
     build: ./FlaskBackend
@@ -45,3 +47,4 @@ services:
 volumes:
   grafana-volume:
   postgres-volume:
+  angular-volume:
