@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import request, current_app
 from flask_cors import cross_origin
 from flask_login import current_user, logout_user
@@ -74,3 +76,33 @@ class HelloWorld(Resource):
 
 api.add_resource(Registration, '/register')
 api.add_resource(HelloWorld, '/hello')
+
+
+@app.route('/create_code', methods=['POST'])
+def create_code():
+    if not current_user.is_authenticated:
+        repository.create_code(401)
+        return "Unauthorized user", 401
+    data = request.json
+    repository.create_code(data["code"], current_user.id)
+    return "Success", 200
+
+
+@app.route('/start_event', methods=['POST'])
+def start_event():
+    if not current_user.is_authenticated:
+        repository.create_code(401)
+        return "Unauthorized user", 401
+    data = request.json
+    event_id = repository.start_event(data["site"], current_user.id)
+    return {"event_id": event_id}, 200
+
+
+@app.route('/finish_event', methods=['POST'])
+def finish_event():
+    if not current_user.is_authenticated:
+        repository.create_code(401)
+        return "Unauthorized user", 401
+    data = request.json
+    repository.finish_event(data["event_id"])
+    return "Success", 200

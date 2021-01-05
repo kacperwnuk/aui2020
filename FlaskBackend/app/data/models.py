@@ -16,7 +16,7 @@ class UserEvent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     site = db.Column(db.String(20), unique=False)
     enter_time = db.Column(db.DateTime, unique=False, default=datetime.now)
-    exit_time = db.Column(db.DateTime, unique=False, default=datetime.now)
+    exit_time = db.Column(db.DateTime, unique=False)
     time_spent = db.Column(db.Integer, unique=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
