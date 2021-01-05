@@ -24,7 +24,7 @@ def initialize_db():
 @app.route('/')
 @cross_origin()
 def hello():
-    repository.create_action("click")
+    repository.create_code(500)
     return 'Hello World!.\n'.format(1), 200
 
 
@@ -67,7 +67,7 @@ class HelloWorld(Resource):
     @cross_origin()
     def get(self):
         if not current_user.is_authenticated:
-            repository.create_action("Unauthorized")
+            repository.create_code(401)
             return "Unauthorized user", 401
         return {"msg": '{}\n'.format(current_user.id)}
 
