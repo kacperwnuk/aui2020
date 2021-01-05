@@ -16,4 +16,4 @@ RUN npm install -g @angular/cli@10.0.1
 COPY . /app
 
 # start app
-CMD ng serve --host 0.0.0.0
+CMD node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration=test --host 0.0.0.0 --disable-host-check
