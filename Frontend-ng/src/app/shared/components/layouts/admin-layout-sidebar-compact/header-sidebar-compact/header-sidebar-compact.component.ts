@@ -72,6 +72,6 @@ export class HeaderSidebarCompactComponent implements OnInit {
   }
 
   signout() {
-    this.auth.signout();
+    this.auth.signOut();
   }
 }

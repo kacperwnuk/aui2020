@@ -53,3 +53,8 @@ export class OperationResult {
   result: any;
 }
 
+export interface User {
+  id: number;
+  authentication_token: string;
+}
+

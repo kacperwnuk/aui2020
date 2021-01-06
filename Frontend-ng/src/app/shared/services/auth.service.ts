@@ -1,36 +1,41 @@
-import { Injectable } from "@angular/core";
-import { LocalStoreService } from "./local-store.service";
-import { Router } from "@angular/router";
-import { of } from "rxjs";
-import { delay } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { LocalStoreService } from './local-store.service';
+import { Router } from '@angular/router';
+import { ApiService } from './api.service';
+import { tap } from 'rxjs/operators';
+import { User } from '../models/api.model';
+
+const routes = {
+    register: () => `/register`,
+    login: () => `/login`,
+    disconnect: () => `/disconnect`
+};
 
 @Injectable({
-  providedIn: "root"
+    providedIn: 'root'
 })
 export class AuthService {
-  //Only for demo purpose
-  authenticated = true;
 
-  constructor(private store: LocalStoreService, private router: Router) {
-    this.checkAuth();
-  }
+    constructor(private store: LocalStoreService, private router: Router, private apiService: ApiService) {
+    }
 
-  checkAuth() {
-    // this.authenticated = this.store.getItem("demo_login_status");
-  }
+    getToken() {
+        const token = localStorage.getItem('ACCESS_TOKEN');
+        return token ? token : undefined;
+    }
 
-  getuser() {
-    return of({});
-  }
+    signIn(credentials: any) {
+        return this.apiService.post(routes.login(), {email: credentials.email, password: credentials.password}, false)
+            .pipe(
+                tap(response => localStorage.setItem('ACCESS_TOKEN', response.response.user.authentication_token)));
+    }
 
-  signin(credentials) {
-    this.authenticated = true;
-    this.store.setItem("demo_login_status", true);
-    return of({}).pipe(delay(1500));
-  }
-  signout() {
-    this.authenticated = false;
-    this.store.setItem("demo_login_status", false);
-    this.router.navigateByUrl("/sessions/signin");
-  }
+    signOut() {
+        localStorage.removeItem('ACCESS_TOKEN');
+        this.router.navigateByUrl('/sessions/signin');
+    }
+
+    signUp(credentials: any) {
+        return this.apiService.post(routes.register(), {email: credentials.email, password: credentials.password}, false);
+    }
 }

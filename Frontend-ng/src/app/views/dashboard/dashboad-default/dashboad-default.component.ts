@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { echartStyles } from '../../../shared/echart-styles';
+import { DataCollectionService } from '../../../shared/services/data-collection.service';
 
 @Component({
 	selector: 'app-dashboad-default',
 	templateUrl: './dashboad-default.component.html',
 	styleUrls: ['./dashboad-default.component.css']
 })
-export class DashboadDefaultComponent implements OnInit {
+export class DashboadDefaultComponent implements OnInit, OnDestroy {
 	chartLineOption1: EChartOption;
 	chartLineOption2: EChartOption;
 	chartLineOption3: EChartOption;
     salesChartBar: EChartOption;
     salesChartPie: EChartOption;
 
-	constructor() { }
+    private eventId: number = null;
+
+	constructor(private dataCollectionService: DataCollectionService) { }
 
 	ngOnInit() {
 		this.chartLineOption1 = {
@@ -204,6 +207,18 @@ export class DashboadDefaultComponent implements OnInit {
                 }
             ]
         };
+
+        this.dataCollectionService.startEvent('podstrony/widok1').subscribe(
+            response => this.eventId = response.event_id
+        );
 	}
+
+    ngOnDestroy(): void {
+        if (this.eventId) {
+            this.dataCollectionService.finishEvent(this.eventId).subscribe(
+                () => {}
+            );
+        }
+    }
 
 }

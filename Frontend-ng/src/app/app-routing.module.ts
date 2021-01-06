@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/auth-layout.component';
 import { AuthGaurd } from './shared/services/auth.gaurd';
 import { BlankLayoutComponent } from './shared/components/layouts/blank-layout/blank-layout.component';
@@ -9,14 +9,17 @@ import { AdminLayoutSidebarCompactComponent } from './shared/components/layouts/
 const adminRoutes: Routes = [
     {
       path: 'dashboard',
+      canActivate: [AuthGaurd],
       loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
     },
     {
       path: 'uikits',
+      canActivate: [AuthGaurd],
       loadChildren: () => import('./views/ui-kits/ui-kits.module').then(m => m.UiKitsModule)
     },
     {
       path: 'pages',
+      canActivate: [AuthGaurd],
       loadChildren: () => import('./views/pages/pages.module').then(m => m.PagesModule)
     }
   ];
@@ -50,7 +53,6 @@ const routes: Routes = [
   {
     path: '',
     component: AdminLayoutSidebarCompactComponent,
-    canActivate: [AuthGaurd],
     children: adminRoutes
   },
   {

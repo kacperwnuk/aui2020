@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { echartStyles } from 'src/app/shared/echart-styles';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { DataCollectionService } from '../../../shared/services/data-collection.service';
 
 @Component({
 	selector: 'app-dashboard-v4',
 	templateUrl: './dashboard-v4.component.html',
 	styleUrls: ['./dashboard-v4.component.scss']
 })
-export class DashboardV4Component implements OnInit {
+export class DashboardV4Component implements OnInit, OnDestroy {
 	lineChart1;
 	chartLineSmall1: any;
 	products$: any;
+	private eventId: number = null;
 
 	constructor(
-		private productService: ProductService
+		private productService: ProductService,
+		private dataCollectionService: DataCollectionService
 	) { }
 
 	ngOnInit() {
@@ -78,6 +81,17 @@ export class DashboardV4Component implements OnInit {
 		};
 		this.products$ = this.productService.getProducts();
 
+		this.dataCollectionService.startEvent('podstrony/widok4').subscribe(
+			response => this.eventId = response.event_id
+		);
+	}
+
+	ngOnDestroy(): void {
+		if (this.eventId) {
+			this.dataCollectionService.finishEvent(this.eventId).subscribe(
+				() => {}
+			);
+		}
 	}
 
 }
