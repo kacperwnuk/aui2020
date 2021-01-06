@@ -3,6 +3,7 @@ import { LocalStoreService } from './local-store.service';
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
 import { tap } from 'rxjs/operators';
+import { User } from '../models/api.model';
 
 const routes = {
     register: () => `/register`,
@@ -26,7 +27,7 @@ export class AuthService {
     signIn(credentials: any) {
         return this.apiService.post(routes.login(), {email: credentials.email, password: credentials.password}, false)
             .pipe(
-                tap(token => localStorage.setItem('ACCESS_TOKEN', token)));
+                tap(response => localStorage.setItem('ACCESS_TOKEN', response.response.user.authentication_token)));
     }
 
     signOut() {

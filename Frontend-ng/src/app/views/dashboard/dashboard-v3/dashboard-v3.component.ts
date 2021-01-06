@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { echartStyles } from 'src/app/shared/echart-styles';
+import { DataCollectionService } from '../../../shared/services/data-collection.service';
 
 @Component({
 	selector: 'app-dashboard-v3',
 	templateUrl: './dashboard-v3.component.html',
 	styleUrls: ['./dashboard-v3.component.scss']
 })
-export class DashboardV3Component implements OnInit {
+export class DashboardV3Component implements OnInit, OnDestroy {
 	chartPie1: any;
 	chartPie2: any;
 	chartBar1: any;
+	private eventId: number = null;
 
-	constructor() { }
+	constructor(private dataCollectionService: DataCollectionService) { }
 
 	ngOnInit() {
 		this.chartPie1 = {
@@ -107,6 +109,17 @@ export class DashboardV3Component implements OnInit {
 				}]
 			}
 		};
+		this.dataCollectionService.startEvent('podstrony/widok3').subscribe(
+			response => this.eventId = response.event_id
+		);
+	}
+
+	ngOnDestroy(): void {
+		if (this.eventId) {
+			this.dataCollectionService.finishEvent(this.eventId).subscribe(
+				() => {}
+			);
+		}
 	}
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DummyTestService } from '../../../shared/services/dummy-test.service';
 import { DataCollectionService } from '../../../shared/services/data-collection.service';
-import { Timer } from 'src/app/shared/components/timer/timer';
 import { NavigationStart, Router } from '@angular/router';
 
 @Component({
@@ -11,8 +10,7 @@ import { NavigationStart, Router } from '@angular/router';
 })
 export class ButtonsComponent implements OnInit, OnDestroy {
 
-    private timer: Timer;
-    private routeSub: any;
+    private eventId: number = null;
 
     constructor(private dummyService: DummyTestService,
                 private dataCollectionService: DataCollectionService,
@@ -20,18 +18,17 @@ export class ButtonsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.timer = new Timer(this.dataCollectionService, 'symulacja/przyciski');
-        this.timer.start();
-
-        this.routeSub = this.router.events.subscribe((event) => {
-            if (event instanceof NavigationStart) {
-                this.timer.stop();
-            }
-        });
+        this.dataCollectionService.startEvent('symulacja/przyciski').subscribe(
+            response => this.eventId = response.event_id
+        );
     }
 
     ngOnDestroy(): void {
-        this.routeSub.unsubscribe();
+        if (this.eventId) {
+            this.dataCollectionService.finishEvent(this.eventId).subscribe(
+                () => {}
+            );
+        }
     }
 
     test() {
@@ -40,8 +37,9 @@ export class ButtonsComponent implements OnInit, OnDestroy {
         });
     }
 
-    simulateResponseCode(code: string) {
+    simulateResponseCode(code: number) {
         this.dataCollectionService.simulateCode(code).subscribe(() => {
+        }, () => {
         });
     }
 }

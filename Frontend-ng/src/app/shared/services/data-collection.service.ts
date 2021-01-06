@@ -3,8 +3,9 @@ import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 
 const routes = {
-    simulateCode: () => `/?`,
-    countTime: () => `/?`,
+    simulateCode: () => `/create_code`,
+    startEvent: () => `/start_event`,
+    finishEvent: () => `/finish_event`,
 };
 
 @Injectable({
@@ -15,11 +16,15 @@ export class DataCollectionService {
     constructor(private apiService: ApiService) {
     }
 
-    simulateCode(responseCode: string): Observable<void> {
-        return this.apiService.post(routes.simulateCode(), {});
+    simulateCode(responseCode: number): Observable<void> {
+        return this.apiService.post(routes.simulateCode(), {code: responseCode});
     }
 
-    countTime(timeInSeconds: number): Observable<void> {
-        return this.apiService.post(routes.countTime(), {});
+    startEvent(site: string): Observable<any> {
+        return this.apiService.post(routes.startEvent(), {site: site});
+    }
+
+    finishEvent(eventId: number): Observable<void> {
+        return this.apiService.post(routes.finishEvent(), {event_id: eventId});
     }
 }
