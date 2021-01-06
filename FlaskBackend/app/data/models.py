@@ -5,10 +5,20 @@ from flask_security import UserMixin, RoleMixin
 from .. import database as db
 
 
-class Action(db.Model):
+class HttpCode(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), unique=False, nullable=True)
+    code = db.Column(db.Integer, unique=False)
     time = db.Column(db.DateTime, unique=False, default=datetime.now)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+
+class UserEvent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    site = db.Column(db.String(20), unique=False)
+    enter_time = db.Column(db.DateTime, unique=False, default=datetime.now)
+    exit_time = db.Column(db.DateTime, unique=False)
+    time_spent = db.Column(db.Integer, unique=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
 roles_users = db.Table('roles_users',
@@ -23,6 +33,8 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    http_codes = db.relationship('HttpCode', backref='users_http_code')
+    events = db.relationship('UserEvent', backref='users_event')
 
 
 class Role(db.Model, RoleMixin):
