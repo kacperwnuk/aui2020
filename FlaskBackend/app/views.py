@@ -79,6 +79,7 @@ api.add_resource(HelloWorld, '/hello')
 
 
 @app.route('/create_code', methods=['POST'])
+@cross_origin()
 def create_code():
     if not current_user.is_authenticated:
         repository.create_code(401)
@@ -89,6 +90,7 @@ def create_code():
 
 
 @app.route('/start_event', methods=['POST'])
+@cross_origin()
 def start_event():
     if not current_user.is_authenticated:
         repository.create_code(401)
@@ -99,6 +101,7 @@ def start_event():
 
 
 @app.route('/finish_event', methods=['POST'])
+@cross_origin()
 def finish_event():
     if not current_user.is_authenticated:
         repository.create_code(401)
