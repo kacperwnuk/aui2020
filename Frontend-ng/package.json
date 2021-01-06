@@ -49,7 +49,6 @@
     "popper.js": "1.14.4",
     "quill": "^1.3.7",
     "rxjs": "~6.5.4",
-    "tns-core-modules": "^6.5.24",
     "tslib": "^1.10.0",
     "web-animations-js": "^2.3.2",
     "zone.js": "~0.10.2"
