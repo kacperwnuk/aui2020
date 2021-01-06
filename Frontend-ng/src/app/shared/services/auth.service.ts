@@ -28,6 +28,7 @@ export class AuthService {
     this.store.setItem("demo_login_status", true);
     return of({}).pipe(delay(1500));
   }
+
   signout() {
     this.authenticated = false;
     this.store.setItem("demo_login_status", false);

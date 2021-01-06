@@ -11,22 +11,23 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { LayoutsModule } from './layouts/layouts.module';
 
 const components = [
-  BtnLoadingComponent,
-  FeatherIconComponent,
+    BtnLoadingComponent,
+    FeatherIconComponent,
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    LayoutsModule,
-    SharedPipesModule,
-    SharedDirectivesModule,
-    SearchModule,
-    PerfectScrollbarModule,
-    NgbModule
-  ],
-  declarations: components,
-  exports: components
+    imports: [
+        CommonModule,
+        RouterModule,
+        LayoutsModule,
+        SharedPipesModule,
+        SharedDirectivesModule,
+        SearchModule,
+        PerfectScrollbarModule,
+        NgbModule
+    ],
+    declarations: components,
+    exports: components
 })
-export class SharedComponentsModule { }
+export class SharedComponentsModule {
+}
