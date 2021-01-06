@@ -3,6 +3,8 @@ import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, ResolveEnd } from '@angular/router';
+import { ApiService } from '../../../shared/services/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-signin',
@@ -14,11 +16,15 @@ export class SigninComponent implements OnInit {
     loading: boolean;
     loadingText: string;
     signinForm: FormGroup;
+
     constructor(
         private fb: FormBuilder,
         private auth: AuthService,
-        private router: Router
-    ) { }
+        private router: Router,
+        private apiService: ApiService,
+        private notification: ToastrService
+    ) {
+    }
 
     ngOnInit() {
         this.router.events.subscribe(event => {
@@ -40,12 +46,19 @@ export class SigninComponent implements OnInit {
 
     signin() {
         this.loading = true;
-        this.loadingText = 'Sigining in...';
-        this.auth.signin(this.signinForm.value)
+        this.loadingText = 'Logowanie...';
+        this.auth.signIn(this.signinForm.value)
             .subscribe(res => {
                 this.router.navigateByUrl('/dashboard/v1');
                 this.loading = false;
+                this.notification.success('Zalogowano pomyślnie', 'Sukces', {timeOut: 2500, closeButton: true, progressBar: true});
+            }, error => {
+                this.loading = false;
+                this.notification.error('Błędne dane', 'Błąd logowania', {timeOut: 2500, closeButton: true, progressBar: true});
             });
     }
 
+    register() {
+        this.router.navigateByUrl('/sessions/signup');
+    }
 }
