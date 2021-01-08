@@ -41,3 +41,13 @@ requests.get("http://localhost:5000/hello", headers={"Authentication-Token": "Wy
 /disconnect wylogowanie
 
 /hello przykładowa strona do testu
+
+
+Zbierane kody 
+200, 400, 401, 404, 500
+
+/ -> 500
+/nieoblugiwany_link -> 404
+brak autoryzacji -> 401
+proba rejestracji zakonczona niepowodzeniem -> 400
+operacja zakończona powodzeniem -> 200
