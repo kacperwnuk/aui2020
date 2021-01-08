@@ -29,8 +29,8 @@ services:
       - "5000"
     ports:
       - "5000:5000"
-    environment:
-      FLASK_DEBUG: 1
+#    environment:
+#      FLASK_DEBUG: 1
     volumes: ['./FlaskBackend:/code']
     depends_on:
       - db
